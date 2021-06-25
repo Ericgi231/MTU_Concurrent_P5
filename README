@@ -1,0 +1,72 @@
+Question 1: 
+The program spawns a thread for santa and the required 
+amount of threads for elves and reindeer in main
+
+The elf thread asks questions with delay between
+Asking a question means to wait in line for santa to help
+santa can only help three at a time
+once helped the elves will leave and new elves are allowed help
+
+The deer return to the north pole after a wait
+once there they wait for all the reindeer to arrive
+once all deer are present they wake santa and wait
+santa gathers all the deer then the deer wait for the sleigh
+santa readies the sleigh then they all head out
+once they are all back the deer leave and repeat the process
+
+santa sleeps and waits to be woken
+once woken he will perform one of the tasks explained above
+if the choice between the two is available, he will pick deer first
+ 
+Question 2:
+My program works by maintaining mutal exclusuion with a monitor
+All functions are within this monitor and therefor only
+one can be run at a time, preventing any two
+critical sections from overlapping
+
+Question 3.1: 
+When an elf asks a question they increase a variable then wait
+at a condition. The third elf to ask will flip a bool that forces
+any future elves to wait at another condition before being counted
+Those three elves can only leave once santa signals three times.
+Once they are signaled they count down from 3 and once the 
+value reaches 0 they signal to allow anyone waiting at the
+blocking condition to then be counted
+
+Question 3.2: 
+elves are blocked by the frontElves condition which is only signaled
+by santa after he is done answering
+
+Question 3.3:
+The backElves condition paired with the groupPicked bool locks out extra elves
+until the first three are done being released as only then does the
+backElves condition get signaled
+
+Question 3.4: 
+The if statment that contains santas logic for question answering only runs
+if a function in the monitor proves that there is a group waiting for help
+the condition that claims a group is waiting for help is only set true
+after sleeping is signaled.
+Also, santa waits at sleeping until initially signaled by the condition
+of a group being made in the first place
+
+Question 3.5:
+As reindeer return they increment a counter, once this counter equals 
+the total number of reindeer, whichever reindeer that made the numbers
+equal will signal a monitor letting santa know to wake up and be ready
+to gather reindeer
+
+Question 3.6:
+The reindeer if comes before the elf if and both of the values
+that determine which is needed are set before the if is reached
+In the case that both are needed the deer will come first
+
+Question 3.7: 
+reindeer are locked down by a working condition that is only
+signaled after santa has finished his run around the world
+
+Question 3.8:
+while santa is away elves may still have question but will not be able to
+ask them to santa as he will be locked in the critical section inside the first
+if statement, only once he is done will he be able to meet the condition
+of being ready to answer elf questions
